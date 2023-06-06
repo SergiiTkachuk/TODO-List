@@ -1,41 +1,5 @@
 [
   {
-    "id": "1686062327231",
-    "title": "rty",
-    "description": "dfg",
-    "deadline": "4.5.1345",
-    "completed": true,
-    "completionDate": "06.06.2023, 18:06:39"
-  },
-  {
-    "id": "1686062337294",
-    "title": "123",
-    "description": "vongo",
-    "deadline": "2.3.1945",
-    "completed": true,
-    "completionDate": "06.06.2023, 18:03:54"
-  },
-  {
-    "id": "1686063892024",
-    "title": "123",
-    "completed": false
-  },
-  {
-    "id": "1686063932548",
-    "title": "123",
-    "description": "ergeg",
-    "deadline": "fwef",
-    "completed": false
-  },
-  {
-    "id": "1686063951449",
-    "title": "123",
-    "description": "ergeg",
-    "deadline": "2.2.2002",
-    "completed": true,
-    "completionDate": "06.06.2023, 18:06:22"
-  },
-  {
     "id": "1686066935476",
     "title": "123",
     "description": "44",
@@ -47,20 +11,6 @@
     "title": "124",
     "description": "555",
     "deadline": "2.2.2025",
-    "completed": false
-  },
-  {
-    "id": "1686068474076",
-    "title": "55",
-    "description": "ttt",
-    "deadline": "2.5.2044",
-    "completed": false
-  },
-  {
-    "id": "1686068503284",
-    "title": "55",
-    "description": "ttt",
-    "deadline": "2055-05-05",
     "completed": false
   }
 ]
