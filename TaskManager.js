@@ -28,6 +28,22 @@ class TaskManager {
 
    }
 
+   listTasks() {
+      
+      console.log('All tasks:');
+      
+      this.tasks.forEach((task) => {
+      
+         console.log(`  ID: ${task.id}`);
+         console.log(`  Title: ${task.title} [${task.completed ? 'Completed' : 'Pending'}]`);
+         console.log(`  Description: ${task.description || 'No description'}`);
+         console.log(`  Deadline: ${task.deadline || 'No deadline'}`);
+         console.log(`  Completion Date: ${task.completionDate ||'Not completed'}`);
+         console.log('----------------------------');
+
+      });
+   }
+
    addTask(title, description, deadline) {      
       
       const task = {
@@ -64,9 +80,44 @@ class TaskManager {
       }
    }
 
+   completeTask(taskId) {
+      
+      const task = this.findTaskById(taskId);
+      
+      if (task) {
+         
+         task.completed = true;
+         task.completionDate = new Date().toLocaleString();
+         
+         this.saveTasks();
+         
+         console.log('Task marked as completed.');
+      } else {
+         console.log('Task not found.');
+      }
+   }
+   
+   deleteTask(taskId) {
+      
+      const index = this.tasks.findIndex((task) => task.id === taskId);
+      
+      if (index !== -1) {
+         
+         this.tasks.splice(index, 1);
+         
+         this.saveTasks();
+         
+         console.log('Task deleted successfully.');
+      } else {
+         console.log('Task not found.');
+      }
+   }
+
    findTaskById(taskId) {
       return this.tasks.find((task) => task.id === taskId);
    }
 }
+
+
 
 module.exports = TaskManager;
