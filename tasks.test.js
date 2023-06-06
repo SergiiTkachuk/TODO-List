@@ -23,7 +23,7 @@ describe('TaskManager', () => {
           id: '1',
           title: 'Task 1',
           description: 'Description 1',
-          deadline: '2023-05-20',
+          deadline: '2025-05-20',
           completed: false,
         },
 
@@ -31,7 +31,7 @@ describe('TaskManager', () => {
           id: '2',
           title: 'Task 2',
           description: 'Description 2',
-          deadline: '2023-05-15',
+          deadline: '2025-05-15',
           completed: true,
         },
 
@@ -73,7 +73,7 @@ describe('TaskManager', () => {
 
     test('should save tasks to test.json file', () => {
 
-      taskManager.addTask('Task 1', 'Description 1', '2023-05-20');
+      taskManager.addTask('Task 1', 'Description 1', '2025-05-20');
 
       taskManager.saveTasks();
 
@@ -87,20 +87,20 @@ describe('TaskManager', () => {
 
     test('should add a new task to the tasks list', () => {
 
-      taskManager.addTask('Task 1', 'Description 1', '2023-08-20');
+      taskManager.addTask('Task 1', 'Description 1', '2025-08-20');
 
       expect(taskManager.tasks.length).toBe(1);
       expect(taskManager.tasks[0].title).toBe('Task 1');
       expect(taskManager.tasks[0].description).toBe('Description 1');
-      expect(taskManager.tasks[0].deadline).toBe('2023-08-20');
+      expect(taskManager.tasks[0].deadline).toBe('2025-08-20');
       expect(taskManager.tasks[0].completed).toBe(false);
 
     });
 
     test('should generate a unique ID for each task', () => {
 
-      taskManager.addTask('Task 1', 'Description 1', '2022-08-20');
-      taskManager.addTask('Task 2', 'Description 2', '2022-08-15');
+      taskManager.addTask('Task 1', 'Description 1', '2025-08-20');
+      taskManager.addTask('Task 2', 'Description 2', '2025-08-15');
 
       expect(taskManager.tasks[0].id).not.toBe(taskManager.tasks[1].id);
     });
