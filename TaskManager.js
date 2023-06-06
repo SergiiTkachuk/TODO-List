@@ -7,10 +7,18 @@ class TaskManager {
    }
 
    loadTasks() {
-
-      const data = fs.readFileSync('tasks.json');
-      return JSON.parse(data);
       
+      try {
+
+         const data = fs.readFileSync('tasks.json');
+         return JSON.parse(data);
+      
+      } catch (error) {
+         
+         console.log(error);
+         return [];
+         
+      }
    }
 
    saveTasks() {
