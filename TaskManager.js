@@ -150,8 +150,8 @@ class TaskManager {
       const tasksWithDeadline = this.tasks.filter((task) => task.hasOwnProperty('deadline'));
       const pendingTasks = tasksWithDeadline.filter((task) => !task.completed);
       
-      pendingTasks.sort((a, b) => {
-         return new Date(a.deadline) - new Date(b.deadline);
+      pendingTasks.sort((earlierTask, laterTask) => {
+         return new Date(earlierTask.deadline) - new Date(laterTask.deadline);
       });
       
       console.log('Pending tasks (sorted by deadline):');
