@@ -5,6 +5,7 @@ on:
    branches:
       - main
       - Vatazhko
+      - Serhii
 jobs:
   build:
     runs-on: ubuntu-latest
