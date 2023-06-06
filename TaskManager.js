@@ -119,8 +119,60 @@ class TaskManager {
    findTaskById(taskId) {
       return this.tasks.find((task) => task.id === taskId);
    }
+
+   showExpiredTasks() {
+      
+      const currentDate = new Date();
+      const expiredTasks = this.tasks.filter((task) => !task.completed && task.deadline && new Date(task.deadline) < currentDate);
+      
+      console.log('Expired tasks:');
+
+      if (expiredTasks.length === 0) {
+
+         console.log('No expired tasks.');
+         return 1;
+
+      }
+      
+      expiredTasks.forEach((task) => {
+         
+         console.log(`  ID: ${task.id}`);
+         console.log(`  Title: ${task.title}`);
+         console.log(`  Description: ${task.description}`);
+         console.log(`  Deadline: ${task.deadline}`);
+         console.log('----------------------------');
+      
+      });
+   }
+   
+   showPendingTasks() {
+      
+      const tasksWithDeadline = this.tasks.filter((task) => task.hasOwnProperty('deadline'));
+      const pendingTasks = tasksWithDeadline.filter((task) => !task.completed);
+      
+      pendingTasks.sort((earlierTask, laterTask) => {
+         return new Date(earlierTask.deadline) - new Date(laterTask.deadline);
+      });
+      
+      console.log('Pending tasks (sorted by deadline):');
+      
+      if (pendingTasks.length === 0) {
+         
+         console.log('No pending tasks.');
+         return 1;
+      
+      }
+
+      pendingTasks.forEach((task) => {
+         
+         console.log(`  ID: ${task.id}`);
+         console.log(`  Title: ${task.title}`);
+         console.log(`  Description: ${task.description || 'No description'}`);
+         console.log(`  Deadline: ${task.deadline}`);
+         console.log('----------------------------');
+      
+      });
+   }
 }
-
-
 
 module.exports = TaskManager;
