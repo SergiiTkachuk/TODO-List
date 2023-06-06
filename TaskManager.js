@@ -126,6 +126,13 @@ class TaskManager {
       const expiredTasks = this.tasks.filter((task) => !task.completed && task.deadline && new Date(task.deadline) < currentDate);
       
       console.log('Expired tasks:');
+
+      if (expiredTasks.length === 0) {
+
+         console.log('No expired tasks.');
+         return 1;
+
+      }
       
       expiredTasks.forEach((task) => {
          
@@ -148,6 +155,13 @@ class TaskManager {
       
       console.log('Pending tasks (sorted by deadline):');
       
+      if (pendingTasks.length === 0) {
+         
+         console.log('No pending tasks.');
+         return 1;
+      
+      }
+
       pendingTasks.forEach((task) => {
          
          console.log(`  ID: ${task.id}`);
