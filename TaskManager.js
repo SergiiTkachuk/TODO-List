@@ -1,4 +1,5 @@
 const fs = require('fs');
+const moment = require('moment');
 
 class TaskManager {
    
@@ -47,7 +48,33 @@ class TaskManager {
       });
    }
 
-   addTask(title, description, deadline) {      
+   addTask(title, description, deadline) { 
+      
+      if (typeof(deadline) !== 'undefined') {
+
+         const dateFormats = [
+               
+            'YYYY-MM-DD',
+            'D.M.YYYY',
+            'DD.MM.YYYY',
+         
+         ];
+      
+         const checkDateFormat = moment(deadline, dateFormats, true).isValid();
+      
+         const parseDate = moment(deadline, dateFormats, true);
+         const inputDate = parseDate.toDate();
+         const currentDate = new Date();
+      
+         const checkStatusDate = inputDate > currentDate;
+         const result = checkStatusDate && checkDateFormat
+
+         if (!result) {
+
+            console.log('Incorrect date.');
+            return 1;
+         }
+      }
       
       const task = {
          
@@ -66,6 +93,32 @@ class TaskManager {
    }
 
    editTask(taskId, title, description, deadline) {
+
+      if (typeof(deadline) !== 'undefined') {
+
+         const dateFormats = [
+               
+            'YYYY-MM-DD',
+            'D.M.YYYY',
+            'DD.MM.YYYY',
+         
+         ];
+      
+         const checkDateFormat = moment(deadline, dateFormats, true).isValid();
+      
+         const parseDate = moment(deadline, dateFormats, true);
+         const inputDate = parseDate.toDate();
+         const currentDate = new Date();
+      
+         const checkStatusDate = inputDate > currentDate;
+         const result = checkStatusDate && checkDateFormat
+
+         if (!result) {
+
+            console.log('Incorrect date.');
+            return 1;
+         }
+      }
 
       const task = this.findTaskById(taskId);
       
