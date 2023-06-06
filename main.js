@@ -1,7 +1,7 @@
 const { program } = require('commander');
 const TaskManager = require('./TaskManager.js')
 
-const taskManager = new TaskManager();
+const taskManager = new TaskManager('tasks.json');
 
 program
   .command('list')
