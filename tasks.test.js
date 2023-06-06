@@ -6,16 +6,16 @@ describe('TaskManager', () => {
   let taskManager;
 
   beforeEach(() => {
-    taskManager = new TaskManager();
+    taskManager = new TaskManager('test.json');
   });
 
   afterEach(() => {
-    fs.writeFileSync('tasks.json', '[]');
+    fs.writeFileSync('test.json', '[]');
   });
 
   describe('loadTasks', () => {
     
-    test('should load tasks from tasks.json file', () => {
+    test('should load tasks from test.json file', () => {
       
       const tasks = [
 
@@ -37,17 +37,17 @@ describe('TaskManager', () => {
 
       ];
 
-      fs.writeFileSync('tasks.json', JSON.stringify(tasks));
+      fs.writeFileSync('test.json', JSON.stringify(tasks));
 
       const loadedTasks = taskManager.loadTasks();
 
       expect(loadedTasks).toEqual(tasks);
     });
 
-    test('should return an empty array if tasks.json file does not exist', () => {
+    test('should return an empty array if test.json file does not exist', () => {
 
-      if (fs.existsSync('tasks.json')) {
-        fs.unlinkSync('tasks.json');
+      if (fs.existsSync('test.json')) {
+        fs.unlinkSync('test.json');
       }
 
       const loadedTasks = taskManager.loadTasks();
@@ -55,7 +55,7 @@ describe('TaskManager', () => {
       expect(loadedTasks).toEqual([]);
     });
 
-    test('should return an empty array if an error occurs while reading tasks.json file', () => {
+    test('should return an empty array if an error occurs while reading test.json file', () => {
 
       jest.spyOn(fs, 'readFileSync').mockImplementation(() => {
         throw new Error('Mocked readFileSync error');
@@ -71,13 +71,13 @@ describe('TaskManager', () => {
 
   describe('saveTasks', () => {
 
-    test('should save tasks to tasks.json file', () => {
+    test('should save tasks to test.json file', () => {
 
       taskManager.addTask('Task 1', 'Description 1', '2023-05-20');
 
       taskManager.saveTasks();
 
-      const fileContent = fs.readFileSync('tasks.json', 'utf-8');
+      const fileContent = fs.readFileSync('test.json', 'utf-8');
 
       expect(JSON.parse(fileContent)).toEqual(taskManager.tasks);
     });
