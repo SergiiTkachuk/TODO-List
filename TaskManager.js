@@ -1,15 +1,15 @@
 const fs = require('fs');
-const moment = require('moment');
+const helpfulFunction = require('./checkDate.js')
 
 class TaskManager {
    
-   constructor(fileName) { 
-
+   constructor(fileName) {
+      
       this.fileName = fileName;
       this.tasks = this.loadTasks();
-
+   
    }
-
+   
    loadTasks() {
       
       try {
@@ -21,17 +21,16 @@ class TaskManager {
          
          console.log(error);
          return [];
-         
       }
    }
-
+   
    saveTasks() {
-
+      
       const jsonData = JSON.stringify(this.tasks, null, 2);
       fs.writeFileSync(`${this.fileName}`, jsonData);
-
+   
    }
-
+  
    listTasks() {
       
       console.log('All tasks:');
@@ -48,31 +47,15 @@ class TaskManager {
       });
    }
 
-   addTask(title, description, deadline) { 
-      
+   addTask(title, description, deadline) {
+
       if (typeof(deadline) !== 'undefined') {
 
-         const dateFormats = [
-               
-            'YYYY-MM-DD',
-            'D.M.YYYY',
-            'DD.MM.YYYY',
-         
-         ];
-      
-         const checkDateFormat = moment(deadline, dateFormats, true).isValid();
-      
-         const parseDate = moment(deadline, dateFormats, true);
-         const inputDate = parseDate.toDate();
-         const currentDate = new Date();
-      
-         const checkStatusDate = inputDate > currentDate;
-         const result = checkStatusDate && checkDateFormat
-
-         if (!result) {
+         if (!helpfulFunction.checkDate(deadline)) {
 
             console.log('Incorrect date.');
             return 1;
+   
          }
       }
       
@@ -91,35 +74,19 @@ class TaskManager {
 
       console.log('Task added successfully.');
    }
-
+   
    editTask(taskId, title, description, deadline) {
 
       if (typeof(deadline) !== 'undefined') {
 
-         const dateFormats = [
-               
-            'YYYY-MM-DD',
-            'D.M.YYYY',
-            'DD.MM.YYYY',
-         
-         ];
-      
-         const checkDateFormat = moment(deadline, dateFormats, true).isValid();
-      
-         const parseDate = moment(deadline, dateFormats, true);
-         const inputDate = parseDate.toDate();
-         const currentDate = new Date();
-      
-         const checkStatusDate = inputDate > currentDate;
-         const result = checkStatusDate && checkDateFormat
-
-         if (!result) {
+         if (!helpfulFunction.checkDate(deadline)) {
 
             console.log('Incorrect date.');
             return 1;
+   
          }
       }
-
+      
       const task = this.findTaskById(taskId);
       
       if (task) {
@@ -135,7 +102,7 @@ class TaskManager {
          console.log('Task not found.');
       }
    }
-
+   
    completeTask(taskId) {
       
       const task = this.findTaskById(taskId);
@@ -168,7 +135,7 @@ class TaskManager {
          console.log('Task not found.');
       }
    }
-
+   
    findTaskById(taskId) {
       return this.tasks.find((task) => task.id === taskId);
    }
@@ -179,7 +146,7 @@ class TaskManager {
       const expiredTasks = this.tasks.filter((task) => !task.completed && task.deadline && new Date(task.deadline) < currentDate);
       
       console.log('Expired tasks:');
-
+      
       if (expiredTasks.length === 0) {
 
          console.log('No expired tasks.');
@@ -199,12 +166,12 @@ class TaskManager {
    }
    
    showPendingTasks() {
-      
+
       const tasksWithDeadline = this.tasks.filter((task) => task.hasOwnProperty('deadline'));
       const pendingTasks = tasksWithDeadline.filter((task) => !task.completed);
       
-      pendingTasks.sort((earlierTask, laterTask) => {
-         return new Date(earlierTask.deadline) - new Date(laterTask.deadline);
+      pendingTasks.sort((a, b) => {
+         return new Date(a.deadline) - new Date(b.deadline);
       });
       
       console.log('Pending tasks (sorted by deadline):');
@@ -215,7 +182,7 @@ class TaskManager {
          return 1;
       
       }
-
+      
       pendingTasks.forEach((task) => {
          
          console.log(`  ID: ${task.id}`);
