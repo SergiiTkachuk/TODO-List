@@ -1,6 +1,7 @@
 const { program } = require('commander');
+const TaskManager = require('./TaskManager.js')
 
-program.version('1.0.0').description('Task Tracker');
+const taskManager = new TaskManager();
 
 program
   .command('list')
@@ -23,3 +24,4 @@ program
     taskManager.editTask(taskId, title, description, deadline);
   });
 
+program.parse(process.argv);
